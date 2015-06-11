@@ -9,6 +9,10 @@ elif infocmp xterm-256color >/dev/null 2>&1; then
 	export TERM='xterm-256color';
 fi;
 
+if [ -n "$TMUX" ]; then
+  export TERM='screen-256color'
+fi
+
 prompt_git() {
 	local s='';
 	local branchName='';
@@ -20,7 +24,7 @@ prompt_git() {
 		if [ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == 'false' ]; then
 
 			# Ensure the index is up to date.
-			git update-index --really-refresh -q &>/dev/null;
+			# git update-index --really-refresh -q &>/dev/null;
 
 			# Check for uncommitted changes in the index.
 			if ! $(git diff --quiet --ignore-submodules --cached); then
@@ -28,9 +32,9 @@ prompt_git() {
 			fi;
 
 			# Check for unstaged changes.
-			if ! $(git diff-files --quiet --ignore-submodules --); then
-				s+='!';
-			fi;
+			# if ! $(git diff-files --quiet --ignore-submodules --); then
+			# 	s+='!';
+			# fi;
 
 			# Check for untracked files.
 			if [ -n "$(git ls-files --others --exclude-standard)" ]; then

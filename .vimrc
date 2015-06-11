@@ -1,7 +1,24 @@
 " Use the Solarized Dark theme
 set background=dark
-colorscheme solarized
-let g:solarized_termtrans=1
+colorscheme morning
+
+set shiftwidth=2
+set softtabstop=2
+set ai
+
+if ! &diff
+  autocmd BufEnter * lcd %:p:h
+endif
+
+map <unique> <C-J> :tabp<CR>
+map <unique> <C-K> :tabn<CR>
+imap <unique> <C-J> <ESC>:tabp<CR>
+imap <unique> <C-K> <ESC>:tabn<CR>
+
+nmap ,v :vsp<CR>
+nmap ,s :sp<CR>
+nmap ,n :set number!<CR>
+nmap ,p :set paste!<CR>
 
 " Make Vim more useful
 set nocompatible
@@ -76,10 +93,10 @@ set title
 " Show the (partial) command as it’s being typed
 set showcmd
 " Use relative line numbers
-if exists("&relativenumber")
-	set relativenumber
-	au BufReadPost * set relativenumber
-endif
+" if exists("&relativenumber")
+" 	set relativenumber
+" 	au BufReadPost * set relativenumber
+" endif
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 
@@ -104,3 +121,5 @@ if has("autocmd")
 	" Treat .md files as Markdown
 	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 endif
+
+set expandtab
