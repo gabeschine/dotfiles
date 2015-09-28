@@ -749,6 +749,8 @@ defaults write com.irradiatedsoftware.SizeUp ShowPrefsOnNextStart -bool false
 
 # Install Sublime Text settings
 cp -r init/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text*/Packages/User/Preferences.sublime-settings 2> /dev/null
+# Allow key repeat in Vintageous in Sublime.
+defaults write com.sublimetext.3 ApplePressAndHoldEnabled -bool false
 
 ###############################################################################
 # Transmission.app                                                            #
