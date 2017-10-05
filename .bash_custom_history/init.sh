@@ -46,7 +46,8 @@ function hsa {
 }
 
 function history_search_percol {
-  NEW_INPUT=$(sort -r -k 4 ~/.bash_history_all | grep -v "end session thatguy" | uniq -f 4 | sort -k 2,3 | cut -d " " -f 4- | percol --reverse --query="$READLINE_LINE" --caret-position="$READLINE_POINT" --prompt-bottom --result-bottom-up)
+  #NEW_INPUT=$(sort -k 4 ~/.bash_history_all | grep -v "end session thatguy" | uniq -f 4 | sort -k 2,3 | cut -d " " -f 4- | percol --reverse --query="$READLINE_LINE" --caret-position="$READLINE_POINT" --prompt-bottom --result-bottom-up)
+  NEW_INPUT=$(cat ~/.bash_history_all | grep -v "end session thatguy" | cut -d " " -f 4- | percol --reverse --query="$READLINE_LINE" --caret-position="$READLINE_POINT" --prompt-bottom --result-bottom-up)
   READLINE_LINE=$NEW_INPUT
   READLINE_POINT=$(echo "$NEW_INPUT" | wc -c)
 }
