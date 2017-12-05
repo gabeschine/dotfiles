@@ -1,0 +1,3 @@
+[submodule ".fzf"]
+	path = .fzf
+	url = https://github.com/gabeschine/fzf.git
