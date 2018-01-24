@@ -51,4 +51,4 @@ function history_search_percol {
   READLINE_LINE=$NEW_INPUT
   READLINE_POINT=$(echo "$NEW_INPUT" | wc -c)
 }
-bind -x '"\C-r":history_search_percol'
+#bind -x '"\C-r":history_search_percol'
