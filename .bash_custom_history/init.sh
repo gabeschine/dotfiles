@@ -6,11 +6,6 @@ if [[ `tty` != "not a tty" ]] ; then # interactive shell
   export HISTFILESIZE=2000
   export HISTSIZE=2000
   export HISTTIMEFORMAT="[%Y-%m-%d %H:%M:%S] "
-  export HISTFILE=$HOME/.bash_history.${TTY_NAME}
-  rm -f $HISTFILE
-
-  # This command is incredibly slow.
-#  tail --lines=$(( $HISTFILESIZE + 200 )) ${HOME}/.bash_history_all | sort -u -m -k 4  | tail --lines=$HISTFILESIZE |awk -f ~/.bash.history_parse.awk >> $HISTFILE
 
   history -r
 
@@ -27,12 +22,15 @@ if [[ `tty` != "not a tty" ]] ; then # interactive shell
       if [ -z "$SAVE_LAST" ]; then
           export SAVE_LAST="done"
           ${HOME}/.bash_custom_history/append.sh "`history 1`"
-          echo "${TTY_NAME} [`date +'%m-%d-%Y_%T'`] # end session $USER@${HOSTNAME}:`tty`" >> ${HOME}/.bash_history_all
-          rm -f $HISTFILE
       fi
   }
   trap 'save_last_command' EXIT
 
+  # In case we have bash-precmd installed and it's taking over $PROMPT_COMMAND.
+  function custom_history_append() {
+      ${HOME}/.bash_custom_history/append.sh `history 1`
+  }
+  precmd_functions+=(custom_history_append)
   # END History manipulation section
   #################################
 fi
