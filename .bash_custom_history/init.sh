@@ -43,10 +43,9 @@ function hsa {
   grep "$*" ~/.bash_history_all
 }
 
-function history_search_percol {
-  #NEW_INPUT=$(sort -k 4 ~/.bash_history_all | grep -v "end session thatguy" | uniq -f 4 | sort -k 2,3 | cut -d " " -f 4- | percol --reverse --query="$READLINE_LINE" --caret-position="$READLINE_POINT" --prompt-bottom --result-bottom-up)
-  NEW_INPUT=$(cat ~/.bash_history_all | grep -v "end session thatguy" | cut -d " " -f 4- | percol --reverse --query="$READLINE_LINE" --caret-position="$READLINE_POINT" --prompt-bottom --result-bottom-up)
+function history_search_fzf {
+  NEW_INPUT=$(cat ~/.bash_history_all | grep -v "end session thatguy" | cut -d " " -f 2- | FZF_DEFAULT_OPTS="--height 30 $FZF_DEFAULT_OPTS --tiebreak=index -e --tac --no-sort --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS +m" $(__fzfcmd) | cut -d " " -f 3-)
   READLINE_LINE=$NEW_INPUT
   READLINE_POINT=$(echo "$NEW_INPUT" | wc -c)
 }
-#bind -x '"\C-r":history_search_percol'
+bind -x '"\C-r":history_search_fzf'
