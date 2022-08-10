@@ -5,10 +5,19 @@ cd "$(dirname "${BASH_SOURCE}")";
 git pull origin master;
 
 function doIt() {
-	rsync --exclude ".git/" --exclude ".gitmodules" --exclude ".DS_Store" --exclude "bootstrap.sh" \
-    --exclude "diff.sh" \
-		--exclude "README.md" --exclude "LICENSE-MIT.txt" -avh --no-perms . ~;
-	source ~/.bash_profile;
+  cwd=$(pwd)
+  for file in $(ls -1 -A | grep -E -w -v '^README.md|.git|.gitattributes|.gitmodules|.DS_Store|bootstrap.sh|LICENSE-MIT.txt|brew.sh|.hgignore|.gitignore|init$'); do
+    if [ -L ../$file ]; then
+      echo "Skipping $file"
+      continue
+    fi
+    ln -siv $cwd/$file ..
+  done
+  source ~/.bash_profile;
+  mkdir -p ~/.vim/swaps
+  mkdir -p ~/.vim/undo
+  mkdir -p ~/.vim/history
+  mkdir -p ~/.vim/backups
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
