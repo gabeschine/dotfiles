@@ -169,3 +169,6 @@
 
 [http]
 	cookiefile = ~/.gitcookies
+[user]
+	name = Gabe Schine
+	email = gabe@schine.net
