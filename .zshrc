@@ -118,3 +118,13 @@ export HISTSIZE=1000000000
 setopt INC_APPEND_HISTORY
 setopt HIST_FIND_NO_DUPS
 setopt SHARE_HISTORY
+
+# Init homebrew
+if [ -f "/opt/homebrew/bin/brew" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Init pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
