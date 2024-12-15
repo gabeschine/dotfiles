@@ -132,3 +132,4 @@ eval "$(pyenv init -)"
 export PATH="$PATH:$HOME/.local/bin"
 
 . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
