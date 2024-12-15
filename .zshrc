@@ -133,3 +133,7 @@ export PATH="$PATH:$HOME/.local/bin"
 
 . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+function toggle-right-prompt() { p10k display '*/right'=hide,show; }
+zle -N toggle-right-prompt
+bindkey '^P' toggle-right-prompt
